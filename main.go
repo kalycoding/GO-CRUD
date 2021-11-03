@@ -23,6 +23,7 @@ func getBlogPostById(c *gin.Context) {
 	for i := 0; i < len(blog); i++ {
 		if blog[i].ID == c.Param("id") {
 			c.JSON(200, blog[i])
+			return
 		}
 	}
 	c.JSON(404, gin.H{
