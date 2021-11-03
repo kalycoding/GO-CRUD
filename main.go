@@ -31,9 +31,30 @@ func getBlogPostById(c *gin.Context) {
 	})
 }
 
+func deletePostById(c *gin.Context) {
+	id := c.Param("id")
+	for i := 0; i < len(blog); i++ {
+		if blog[i].ID == id {
+			newBlog := remove(blog, i)
+			blog = newBlog
+			//fmt.Println(blog)
+			c.JSON(204, blog)
+			return
+		}
+		c.JSON(404, gin.H{
+			"errorMessage": "Not Found",
+		})
+	}
+}
+
 func main() {
 	r := gin.Default()
 	r.GET("/posts", getBlogPosts)
 	r.GET("/posts/:id", getBlogPostById)
+	r.DELETE("/posts/:id", deletePostById)
 	r.Run()
+}
+
+func remove(slice []BlogPost, s int) []BlogPost {
+	return append(slice[:s], slice[s+1:]...)
 }
