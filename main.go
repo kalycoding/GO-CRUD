@@ -41,9 +41,6 @@ func deletePostById(c *gin.Context) {
 			c.JSON(204, blog)
 			return
 		}
-		c.JSON(404, gin.H{
-			"errorMessage": "Not Found",
-		})
 	}
 }
 
@@ -57,6 +54,7 @@ func postBlog(c *gin.Context) {
 	}
 
 	// Add the new album to the slice.
+
 	blog = append(blog, newBlogPost)
 	c.JSON(201, blog)
 }
