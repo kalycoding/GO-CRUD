@@ -33,5 +33,6 @@ func getBlogPostById(c *gin.Context) {
 func main() {
 	r := gin.Default()
 	r.GET("/posts", getBlogPosts)
+	r.GET("/posts/:id", getBlogPostById)
 	r.Run()
 }
