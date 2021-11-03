@@ -47,9 +47,24 @@ func deletePostById(c *gin.Context) {
 	}
 }
 
+func postBlog(c *gin.Context) {
+	var newBlogPost BlogPost
+
+	// Call BindJSON to bind the received JSON to
+	// newBlog.
+	if err := c.BindJSON(&newBlogPost); err != nil {
+		return
+	}
+
+	// Add the new album to the slice.
+	blog = append(blog, newBlogPost)
+	c.JSON(201, blog)
+}
+
 func main() {
 	r := gin.Default()
 	r.GET("/posts", getBlogPosts)
+	r.POST("/posts", postBlog)
 	r.GET("/posts/:id", getBlogPostById)
 	r.DELETE("/posts/:id", deletePostById)
 	r.Run()
